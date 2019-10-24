@@ -1,5 +1,8 @@
 package net.monde.invoices.exceptions;
 
+import net.monde.invoices.services.impl.InvoiceServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,14 +24,18 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
+    private static final Logger logger = LoggerFactory.getLogger(CustomGlobalExceptionHandler.class);
+
     @ExceptionHandler(InvoiceNotFoundException.class)
     public void springHandleNotFound(HttpServletResponse response) throws IOException {
+        logger.error("invoice not found exception");
         response.sendError(HttpStatus.NOT_FOUND.value());
     }
 
 
     @ExceptionHandler(ConstraintViolationException.class)
     public void constraintViolationException(HttpServletResponse response) throws IOException {
+        logger.error("Invalid input received.");
         response.sendError(HttpStatus.BAD_REQUEST.value());
     }
 

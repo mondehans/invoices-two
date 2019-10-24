@@ -47,7 +47,7 @@ public class LineItem implements Serializable {
     }
 
     public void setUnitPrice(BigDecimal unitPrice) {
-        this.unitPrice = unitPrice;
+        this.unitPrice = unitPrice.setScale(2, BigDecimal.ROUND_HALF_EVEN);;
     }
 
     @Override

@@ -75,16 +75,16 @@ public class Invoice implements Serializable {
 
 
     public BigDecimal getSubTotal(){
-       return lineItems.stream().map(x -> x.getUnitPrice().multiply(new BigDecimal(x.getQuantity()))).reduce(BigDecimal::add).get();
+       return lineItems.stream().map(x -> x.getUnitPrice().multiply(new BigDecimal(x.getQuantity()))).reduce(BigDecimal::add).get().setScale(2, BigDecimal.ROUND_HALF_EVEN);
     }
 
     public BigDecimal getVat(){
 
-      return  lineItems.stream().map(x -> x.getUnitPrice().multiply(new BigDecimal(x.getQuantity()))).reduce(BigDecimal::add).get().multiply(new BigDecimal(getVatRate()).divide(new BigDecimal(100l)));
+      return  lineItems.stream().map(x -> x.getUnitPrice().multiply(new BigDecimal(x.getQuantity()))).reduce(BigDecimal::add).get().multiply(new BigDecimal(getVatRate()).divide(new BigDecimal(100l))).setScale(2, BigDecimal.ROUND_HALF_EVEN);
     }
 
     public BigDecimal getTotal(){
-        return getSubTotal().add(getVat());
+        return getSubTotal().add(getVat()).setScale(2, BigDecimal.ROUND_HALF_EVEN);
     }
 
     @Override
