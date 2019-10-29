@@ -28,7 +28,7 @@ public class Invoice implements Serializable {
     @NotNull
     private Date invoiceDate;
 
-    @NotEmpty
+    //@NotEmpty
     @Valid
     @OneToMany(
             cascade = CascadeType.ALL,
